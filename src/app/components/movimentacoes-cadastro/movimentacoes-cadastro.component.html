@@ -1,0 +1,92 @@
+<div>
+    <h5>Cadastro de movimentações</h5>
+    <p>Preencha os campos para incluir uma movimentação de um produto.</p>
+    <hr />
+
+    <div class="mb-2">
+        <strong>{{mensagem}}</strong>
+    </div>
+
+    <form [formGroup]="formCadastro" (ngSubmit)="onSubmit()">
+
+        <div class="row mb-2">
+            <div class="col-md-5">
+                <label>Selecione o Produto:</label>
+                <select class="form-select" formControlName="idProduto">
+                    <option value="">Escolha uma opção</option>
+                    <option *ngFor="let item of produtos" value="{{item.idProduto}}">{{item.nome}}</option>
+                </select>
+                <div class="text-danger" *ngIf="form.idProduto.touched && form.idProduto.invalid">
+                    <span *ngIf="form.idProduto.errors.required">
+                        Por favor, selecione o produto desejado.
+                    </span>
+                </div>
+            </div>
+           
+            <div class="col-md-3">
+                <label>Tipo:</label>
+                <select class="form-select" formControlName="tipo">
+                    <option value="">Escolha uma opção</option>
+                    <option value="1">Entrada de Produtos</option>
+                    <option value="2">Saída de Produtos</option>
+                </select>
+                <div class="text-danger" *ngIf="form.tipo.touched && form.tipo.invalid">
+                    <span *ngIf="form.tipo.errors.required">
+                        Por favor, selecione o tipo de movimentação.
+                    </span>
+                </div>
+            </div>
+            
+            <div class="col-md-2">
+                <label>Quantidade:</label>
+                <input type="number" class="form-control" formControlName="quantidade" />
+                <div class="text-danger" *ngIf="form.quantidade.touched && form.quantidade.invalid">
+                    <span *ngIf="form.quantidade.errors.required">
+                        Por favor, informe a quantidade.
+                    </span>
+                    <span *ngIf="form.quantidade.errors.min">
+                        Por favor, informe um valor maior ou igual a 1.
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label>Data:</label>
+                <input type="date" class="form-control" formControlName="dataMovimentacao" />
+                <div class="text-danger" *ngIf="form.dataMovimentacao.touched && form.dataMovimentacao.invalid">
+                    <span *ngIf="form.dataMovimentacao.errors.required">
+                        Por favor, informea data da movimentação.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <label>Observações:</label>
+                <textarea class="form-control" formControlName="observacoes"></textarea>
+                <div class="text-danger" *ngIf="form.observacoes.touched && form.observacoes.invalid">
+                    <span *ngIf="form.observacoes.errors.required">
+                        Por favor, informe as observações da movimentação.
+                    </span>
+                    <span *ngIf="form.observacoes.errors.minlength">
+                        Por favor, informe no mínimo 8 caracteres.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <input type="submit" 
+                       class="btn btn-success me-2" 
+                       value="Realizar Cadastro"
+                       [disabled]="!formCadastro.valid"
+                />
+                <a class="btn btn-light" routerLink="/movimentacoes-consulta">Ir para a consulta</a>
+            </div>
+        </div>  
+
+    </form>
+
+</div>

@@ -1,0 +1,51 @@
+<div>
+    <h5>Consulta de produtos</h5>
+    <p>Listagem de produtos cadastrados.</p>
+    <hr />
+
+    <div class="mb-2">
+        <strong>{{mensagem}}</strong>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Nome do produto</th>
+                    <th>Descrição</th>
+                    <th class="text-end">Preço</th>
+                    <th class="text-end">Quantidade</th>
+                    <th class="text-end">Total</th>
+                    <th [width]="160">Operações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of produtos">
+                    <td>{{item.nome}}</td>
+                    <td>{{item.descricao}}</td>
+                    <td class="text-end">{{item.preco | currency: 'R$ '}}</td>
+                    <td class="text-end">{{item.quantidade}}</td>
+                    <td class="text-end">{{item.preco * item.quantidade | currency: 'R$ '}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-danger me-2" 
+                            (click)="onDelete(item.idProduto, item.nome)">
+                            Excluir
+                        </button>
+                        <button class="btn btn-sm btn-outline-primary"
+                            [routerLink]="['/produtos-edicao', item.idProduto]">
+                            Editar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        Quantidade de produtos: {{produtos.length}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>

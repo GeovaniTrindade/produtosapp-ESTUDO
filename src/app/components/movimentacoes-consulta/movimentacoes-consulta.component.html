@@ -1,0 +1,72 @@
+<div>
+    <h5>Consulta de movimentações</h5>
+    <p>Pesquise as movimentações de produtos por período de datas.</p>
+    <hr />
+
+    <form [formGroup]="formConsulta" (ngSubmit)="onSubmit()">
+
+        <div class="row mb-2">
+            <div class="col-md-2">
+                <input type="date" class="form-control" formControlName="dataInicio"/>
+                <div class="text-danger" *ngIf="form.dataInicio.touched && form.dataInicio.invalid">
+                    <span *ngIf="form.dataInicio.errors.required">
+                        Por favor, informe a data de início.
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="date" class="form-control" formControlName="dataFim"/>
+                <div class="text-danger" *ngIf="form.dataFim.touched && form.dataFim.invalid">
+                    <span *ngIf="form.dataFim.errors.required">
+                        Por favor, informe a data de fim.
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-light" value="Pesquisar Movimentações"
+                    [disabled]="!formConsulta.valid"/>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="table-responsive mt-2" *ngIf="movimentacoes.length > 0">
+        <table class="table table-sm table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Quantidade</th>
+                    <th>Produto</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of movimentacoes">
+                    <td>{{item.dataMovimentacao | date : 'dd/MM/yyyy'}}</td>
+                    <td>
+                        <span *ngIf="item.tipo == 1" class="badge bg-success">
+                            <strong>ENTRADA</strong>
+                        </span>
+                        <span *ngIf="item.tipo == 2" class="badge bg-danger">
+                            <strong>SAÍDA</strong>
+                        </span>
+                    </td>
+                    <td>{{item.quantidade}}</td>
+                    <td>
+                        {{item.produto.nome}} (<small>Preço: {{item.produto.preco | currency: 'R$'}}</small>)                       
+                    </td>
+                    <td>{{item.observacoes}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        Quantidade de movimentações: {{movimentacoes.length}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
