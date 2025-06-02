@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environments } from 'src/environments/environments';
 
 @Component({
   selector: 'app-movimentacoes-cadastro',
@@ -30,7 +31,7 @@ export class MovimentacoesCadastroComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.httpClient.get('http://localhost:8081/api/produtos')
+    this.httpClient.get(environments.apiProdutos + '/produtos')
       .subscribe({
         next: (data) => {
           this.produtos = data as [];
@@ -48,7 +49,7 @@ export class MovimentacoesCadastroComponent implements OnInit {
 
   //função para capturar o evento de SUBMIT do formulário
   onSubmit(): void {
-    this.httpClient.post('http://localhost:8081/api/movimentacoes', this.formCadastro.value)
+    this.httpClient.post(environments.apiProdutos + '/movimentacoes', this.formCadastro.value)
       .subscribe({
         next: (data: any) => {
           this.mensagem = data.mensagem;

@@ -32,5 +32,3 @@ export class AuthGuard {
 
     }
 }
-
-// 2h40min

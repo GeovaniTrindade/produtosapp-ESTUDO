@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environments } from 'src/environments/environments';
 
 @Component({
   selector: 'app-produtos-cadastro',
@@ -31,7 +32,7 @@ export class ProdutosCadastroComponent {
 
   onSubmit(): void {
     // chamada para o serviço da API
-    this.httpClient.post('http://localhost:8081/api/produtos', this.formCadastro.value)
+    this.httpClient.post(environments.apiProdutos + '/produtos', this.formCadastro.value)
       .subscribe({ // capturando a resposta da API
         next: (data: any) => { // recebendo a resposta de sucesso
           // exibindo mensagem na página

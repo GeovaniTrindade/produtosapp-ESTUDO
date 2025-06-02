@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { environments } from 'src/environments/environments';
 
 @Component({
   selector: 'app-produtos-consulta',
@@ -22,7 +23,7 @@ export class ProdutosConsultaComponent implements OnInit {
   // função executada no momento que a página abre
   ngOnInit(): void {
     // fazendo uma requisição GET para a API
-    this.httpClient.get('http://localhost:8081/api/produtos')
+    this.httpClient.get(environments.apiProdutos + '/produtos')
       .subscribe({ // capturando o retorno da API
         next: (data) => { // recebendo o retorno de sucesso
           // armazenar os dados na variável
@@ -37,7 +38,7 @@ export class ProdutosConsultaComponent implements OnInit {
   onDelete(idProduto: number, nome: string): void {
 
     if(window.confirm('Deseja realmente excluir o produto' + " " + nome + '?')){
-      this.httpClient.delete('http://localhost:8081/api/produtos/' + idProduto)
+      this.httpClient.delete(environments.apiProdutos + '/produtos/' + idProduto)
         .subscribe({
           next: (data: any) => {
             this.mensagem = data.mensagem;

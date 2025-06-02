@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { encrypt } from 'src/app/helpers/crypto.helper';
+import { environments } from 'src/environments/environments';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +41,7 @@ export class LoginComponent {
 
   //função para capturar o submit do formulário
   onSubmit(): void {
-    this.httpClient.post('http://localhost:8081/api/auth', this.formLogin.value)
+    this.httpClient.post(environments.apiProdutos + '/auth', this.formLogin.value)
       .subscribe({
         next: (data : any) => {
 
@@ -59,6 +60,4 @@ export class LoginComponent {
         }
       })
   }
-// 2h, já atualizei o package.json
-
 }

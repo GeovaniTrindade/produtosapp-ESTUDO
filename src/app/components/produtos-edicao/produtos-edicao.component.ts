@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { environments } from 'src/environments/environments';
 
 @Component({
   selector: 'app-produtos-edicao',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProdutosEdicaoComponent implements OnInit {
 
-  mensagem: string='';
+  mensagem: string = '';
 
   constructor(
     private httpClient: HttpClient,
@@ -22,7 +23,7 @@ export class ProdutosEdicaoComponent implements OnInit {
     // capturando o id enviado na url
     var idProduto = this.activatedRoute.snapshot.paramMap.get('id') as string;
     // consultando o produto através do ID
-    this.httpClient.get('http://localhost:8081/api/produtos/' + idProduto)
+    this.httpClient.get(environments.apiProdutos + '/produtos/' + idProduto)
       .subscribe({
         next: (data: any) => {
           // preencher o formulário com os dados do produto obtido
@@ -48,7 +49,7 @@ export class ProdutosEdicaoComponent implements OnInit {
   }
 
   onSubmit(): any {
-    this.httpClient.put('http://localhost:8081/api/produtos', this.formEdicao.value)
+    this.httpClient.put(environments.apiProdutos + '/produtos', this.formEdicao.value)
       .subscribe({
         next: (data: any) => {
           this.mensagem = data.mensagem;
@@ -58,6 +59,4 @@ export class ProdutosEdicaoComponent implements OnInit {
         }
       });
   }
-  // 3h35
-
 }

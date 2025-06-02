@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environments } from 'src/environments/environments';
 
 @Component({
   selector: 'app-movimentacoes-consulta',
@@ -33,7 +34,7 @@ export class MovimentacoesConsultaComponent {
     var dataFim = this.formConsulta.value.dataFim;
 
     //fazendo a requisição para consultar as movimentações na API
-    this.httpClient.get('http://localhost:8081/api/movimentacoes/' + dataInicio + "/" + dataFim)
+    this.httpClient.get(environments.apiProdutos + '/movimentacoes/' + dataInicio + "/" + dataFim)
       .subscribe({
         next: (data) => {
           this.movimentacoes = data as any[];
